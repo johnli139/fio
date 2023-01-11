@@ -1,0 +1,32 @@
+progon12: (g=0): rw=read, bs=(R) 64.0KiB-64.0KiB, (W) 64.0KiB-64.0KiB, (T) 64.0KiB-64.0KiB, ioengine=libaio, iodepth=32
+...
+fio-3.7
+Starting 2 processes
+
+progon12: (groupid=0, jobs=2): err= 0: pid=21704: Sat Nov 26 12:13:24 2022
+   read: IOPS=2402, BW=150MiB/s (158MB/s)(9014MiB/60001msec)
+    slat (nsec): min=3366, max=31142, avg=4225.65, stdev=984.71
+    clat (usec): min=198, max=961815, avg=27032.49, stdev=154963.30
+     lat (usec): min=202, max=961819, avg=27036.78, stdev=154963.30
+    clat percentiles (usec):
+     |  1.00th=[   355],  5.00th=[   498], 10.00th=[   594], 20.00th=[   750],
+     | 30.00th=[   873], 40.00th=[  1004], 50.00th=[  1139], 60.00th=[  1270],
+     | 70.00th=[  1434], 80.00th=[  1631], 90.00th=[  1958], 95.00th=[  2343],
+     | 99.00th=[960496], 99.50th=[960496], 99.90th=[960496], 99.95th=[960496],
+     | 99.99th=[960496]
+   bw (  KiB/s): min=  384, max=154112, per=50.40%, avg=77527.54, stdev=70079.74, samples=238
+   iops        : min=    6, max= 2408, avg=1211.35, stdev=1095.01, samples=238
+  lat (usec)   : 250=0.07%, 500=5.12%, 750=15.01%, 1000=19.62%
+  lat (msec)   : 2=51.22%, 4=6.10%, 10=0.18%, 20=0.02%, 1000=2.71%
+  cpu          : usr=0.20%, sys=0.61%, ctx=76750, majf=0, minf=13
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=110.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.1%, 64=0.0%, >=64=0.0%
+     issued rwts: total=144156,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=32
+
+Run status group 0 (all jobs):
+   READ: bw=150MiB/s (158MB/s), 150MiB/s-150MiB/s (158MB/s-158MB/s), io=9014MiB (9451MB), run=60001-60001msec
+
+Disk stats (read/write):
+  vdb: ios=158400/0, merge=0/0, ticks=4132019/0, in_queue=4132019, util=98.42%
