@@ -1,9 +1,10 @@
 #!/bin/bash
 #for THREADS in `seq 4 4 $MAXTHREADS`
 
-TIME=20
-SLEEP=2
+TIME=60
+SLEEP=5
 MAXTHREADS=32
+DISK=/dev/vdb
 
 # ------------ 1 disk -- bloсk=4K -- 100% random read -- iodepth=1 -- variable numjobs -----------------------
 for ((p=1; p<=$MAXTHREADS; p++))
@@ -19,7 +20,7 @@ do
   --ioengine=libaio \
   --group_reporting \
   --name=$NAME \
-  --filename=/dev/vdb \
+  --filename=$DISK \
   --bs=4k \
   --rw=randread \
   --iodepth=1 \
@@ -42,7 +43,7 @@ do
   --ioengine=libaio \
   --group_reporting \
   --name=$NAME \
-  --filename=/dev/vdb \
+  --filename=$DISK \
   --bs=4k \
   --rw=randwrite \
   --iodepth=1 \
@@ -65,7 +66,7 @@ do
   --ioengine=libaio \
   --group_reporting \
   --name=$NAME \
-  --filename=/dev/vdb \
+  --filename=$DISK \
   --bs=64k \
   --rw=read \
   --iodepth=1 \
@@ -88,7 +89,7 @@ do
   --ioengine=libaio \
   --group_reporting \
   --name=$NAME \
-  --filename=/dev/vdb \
+  --filename=$DISK \
   --bs=64k \
   --rw=write \
   --iodepth=1 \
@@ -111,7 +112,7 @@ do
   --ioengine=libaio \
   --group_reporting \
   --name=$NAME \
-  --filename=/dev/vdb \
+  --filename=$DISK \
   --bs=8k \
   --rw=randrw \
   --iodepth=1 \
@@ -134,7 +135,7 @@ do
   --ioengine=libaio \
   --group_reporting \
   --name=$NAME \
-  --filename=/dev/vdb \
+  --filename=$DISK \
   --bs=32k \
   --rw=rw \
   --iodepth=1 \
