@@ -2,13 +2,14 @@
                                         # в качестве изменяемой переменной используется кол-во параллельных потоков (numjobs)
 TIME=60                                 # время замера одного профиля
 SLEEP=5                                 # пауза между замерами
-MAXTHREADS=256                          # макс. кол-во параллельных потоков, д.б. кратно 8, рекомендуемые значения от 32 до 256
 DISK=/dev/vdb                           # имена дисков для тестирования - разделитель ":"
+NUMJOBS=1                               # кол-во параллельных задач (процессов)
+MAXIODEPTH=256                          # макс. кол-во IO, посылаемых в ОС без подтверждения их получения от ОС
 
-# -------- №1 -- bloсk=4K -- 100% random read -- iodepth=1 -----------------------
+# -------- №1 -- bloсk=4K -- 100% random read -----------------------
 for ((p=1; p<=7; p++))
 do
-  NAME=1d-4k-randread-1-$p
+  NAME=4k-randread-$p-$NUMJOBS
   fio \
   --size=10g \
   --direct=1 \
@@ -22,15 +23,15 @@ do
   --filename=$DISK \
   --bs=4k \
   --rw=randread \
-  --iodepth=1 \
-  --numjobs=$p \
+  --iodepth=$p \
+  --numjobs=$NUMJOBS \
   --output=./out/$NAME.txt
   sleep $SLEEP
 done
 
-for p in `seq 8 8 $MAXTHREADS`
+for p in `seq 8 8 $MAXIODEPTH`
 do
-  NAME=1d-4k-randread-1-$p
+  NAME=4k-randread-$p-$NUMJOBS
   fio \
   --size=10g \
   --direct=1 \
@@ -44,16 +45,16 @@ do
   --filename=$DISK \
   --bs=4k \
   --rw=randread \
-  --iodepth=1 \
-  --numjobs=$p \
+  --iodepth=$p \
+  --numjobs=$NUMJOBS \
   --output=./out/$NAME.txt
   sleep $SLEEP
 done
 
-# -------- №2 -- block=4K -- 100% random write -- iodepth=1 -----------------------
+# -------- №2 -- block=4K -- 100% random write -----------------------
 for ((p=1; p<=7; p++))
 do
-  NAME=1d-4k-randwrite-1-$p
+  NAME=4k-randwrite-$p-$NUMJOBS
   fio \
   --size=10g \
   --direct=1 \
@@ -67,15 +68,15 @@ do
   --filename=$DISK \
   --bs=4k \
   --rw=randwrite \
-  --iodepth=1 \
-  --numjobs=$p \
+  --iodepth=$p \
+  --numjobs=$NUMJOBS \
   --output=./out/$NAME.txt
   sleep $SLEEP
 done
 
-for p in `seq 8 8 $MAXTHREADS`
+for p in `seq 8 8 $MAXIODEPTH`
 do
-  NAME=1d-4k-randwrite-1-$p
+  NAME=4k-randwrite-$p-$NUMJOBS
   fio \
   --size=10g \
   --direct=1 \
@@ -89,16 +90,16 @@ do
   --filename=$DISK \
   --bs=4k \
   --rw=randwrite \
-  --iodepth=1 \
-  --numjobs=$p \
+  --iodepth=$p \
+  --numjobs=$NUMJOBS \
   --output=./out/$NAME.txt
   sleep $SLEEP
 done
 
-# -------- №3 -- block=64K -- 100% sequential read -- iodepth=1 -----------------------
+# -------- №3 -- block=64K -- 100% sequential read -----------------------
 for ((p=1; p<=7; p++))
 do
-  NAME=1d-64k-read-1-$p
+  NAME=64k-read-$p-$NUMJOBS
   fio \
   --size=10g \
   --direct=1 \
@@ -112,15 +113,15 @@ do
   --filename=$DISK \
   --bs=64k \
   --rw=read \
-  --iodepth=1 \
-  --numjobs=$p \
+  --iodepth=$p \
+  --numjobs=$NUMJOBS \
   --output=./out/$NAME.txt
   sleep $SLEEP
 done
 
-for p in `seq 8 8 $MAXTHREADS`
+for p in `seq 8 8 $MAXIODEPTH`
 do
-  NAME=1d-64k-read-1-$p
+  NAME=64k-read-$p-$NUMJOBS
   fio \
   --size=10g \
   --direct=1 \
@@ -134,16 +135,16 @@ do
   --filename=$DISK \
   --bs=64k \
   --rw=read \
-  --iodepth=1 \
-  --numjobs=$p \
+  --iodepth=$p \
+  --numjobs=$NUMJOBS \
   --output=./out/$NAME.txt
   sleep $SLEEP
 done
 
-# -------- №4 -- block=64K -- 100% sequential write -- iodepth=1 -----------------------
+# -------- №4 -- block=64K -- 100% sequential write -----------------------
 for ((p=1; p<=7; p++))
 do
-  NAME=1d-64k-write-1-$p
+  NAME=64k-write-$p-$NUMJOBS
   fio \
   --size=10g \
   --direct=1 \
@@ -157,15 +158,15 @@ do
   --filename=$DISK \
   --bs=64k \
   --rw=write \
-  --iodepth=1 \
-  --numjobs=$p \
+  --iodepth=$p \
+  --numjobs=$NUMJOBS \
   --output=./out/$NAME.txt
   sleep $SLEEP
 done
 
-for p in `seq 8 8 $MAXTHREADS`
+for p in `seq 8 8 $MAXIODEPTH`
 do
-  NAME=1d-64k-write-1-$p
+  NAME=64k-write-$p-$NUMJOBS
   fio \
   --size=10g \
   --direct=1 \
@@ -179,16 +180,16 @@ do
   --filename=$DISK \
   --bs=64k \
   --rw=write \
-  --iodepth=1 \
-  --numjobs=$p \
+  --iodepth=$p \
+  --numjobs=$NUMJOBS \
   --output=./out/$NAME.txt
   sleep $SLEEP
 done
 
-# -------- №5 -- block=32K -- 100% sequential read -- iodepth=1 -----------------------
+# -------- №5 -- block=32K -- 100% sequential read -----------------------
 for ((p=1; p<=7; p++))
 do
-  NAME=1d-32k-read-1-$p
+  NAME=32k-read-$p-$NUMJOBS
   fio \
   --size=10g \
   --direct=1 \
@@ -202,15 +203,15 @@ do
   --filename=$DISK \
   --bs=32k \
   --rw=read \
-  --iodepth=1 \
-  --numjobs=$p \
+  --iodepth=$p \
+  --numjobs=$NUMJOBS \
   --output=./out/$NAME.txt
   sleep $SLEEP
 done
 
-for p in `seq 8 8 $MAXTHREADS`
+for p in `seq 8 8 $MAXIODEPTH`
 do
-  NAME=1d-32k-read-1-$p
+  NAME=32k-read-$p-$NUMJOBS
   fio \
   --size=10g \
   --direct=1 \
@@ -224,8 +225,8 @@ do
   --filename=$DISK \
   --bs=32k \
   --rw=read \
-  --iodepth=1 \
-  --numjobs=$p \
+  --iodepth=$p \
+  --numjobs=$NUMJOBS \
   --output=./out/$NAME.txt
   sleep $SLEEP
 done
