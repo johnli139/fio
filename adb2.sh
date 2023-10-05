@@ -1,26 +1,27 @@
 #!/bin/bash
 
-TIME=10                                   # время замера одного профиля
-SLEEP=1                                   # пауза между замерами
-FILE=/data8/fio        # имена файлов для тестирования - разделитель ":", необходимо указывать файл для каждой mountpoint
+TIME=60                                  # время замера одного профиля
+SLEEP=10                                 # пауза между замерами
+FILE=/data8/fio                          # имена файлов для тестирования - разделитель ":", необходимо указывать файл для каждой mountpoint
 IODEPTH=1                                # кол-во IO, посылаемых в ОС без подтверждения их получения от ОС
-NUMJOBS=64                                # кол-во параллельных задач (процессов) 
+NUMJOBS=64                               # кол-во параллельных задач (процессов) 
 
 OUT="./$(hostname).csv"
 if [ -f "$OUT" ]; then
    rm -f $OUT
 fi
 
-echo Test date,$(date) >> $OUT
+echo Hostname,$(hostname) >> $OUT
+echo Test date,$(date +%d.%m.%Y" "%H:%M:%S) >> $OUT
 echo Test runtime,$TIME >> $OUT
 echo Test file,$FILE >> $OUT
 echo >> $OUT
 echo BLOCK SIZE,PROFILE,IODEPTH,NUMJOBS,,IOPS,THROUGHPUT,LATENCY >> $OUT
 
 #---------------------512K-read----------------------------------------------------------------------------#
-  BS=512k                                    # размер блока
-  RW=read                                  # тип теста: randread/randwrite/read/write
-  NAME=$BS-$RW-$IODEPTH-$NUMJOBS          # имя выходного файла
+BS=512k                                    # размер блока
+RW=read                                  # тип теста: randread/randwrite/read/write
+NAME=$BS-$RW-$IODEPTH-$NUMJOBS          # имя выходного файла
 
   fio \
   --size=10g \
@@ -47,9 +48,9 @@ $(awk -F"(" '/\slat.*avg/ { print $2}' ./out/$NAME.txt | awk -F")" ' { print $1 
 sleep $SLEEP  
 
 #---------------------512K-write----------------------------------------------------------------------------#
-  BS=512k                                    # размер блока
-  RW=write                                  # тип теста: randread/randwrite/read/write
-  NAME=$BS-$RW-$IODEPTH-$NUMJOBS          # имя выходного файла
+BS=512k                                    # размер блока
+RW=write                                  # тип теста: randread/randwrite/read/write
+NAME=$BS-$RW-$IODEPTH-$NUMJOBS          # имя выходного файла
 
   fio \
   --size=10g \
@@ -76,9 +77,9 @@ $(awk -F"(" '/\slat.*avg/ { print $2}' ./out/$NAME.txt | awk -F")" ' { print $1 
 sleep $SLEEP  
 
 #---------------------32K-read----------------------------------------------------------------------------#
-  BS=32k                                    # размер блока
-  RW=read                                  # тип теста: randread/randwrite/read/write
-  NAME=$BS-$RW-$IODEPTH-$NUMJOBS          # имя выходного файла
+BS=32k                                    # размер блока
+RW=read                                  # тип теста: randread/randwrite/read/write
+NAME=$BS-$RW-$IODEPTH-$NUMJOBS          # имя выходного файла
 
   fio \
   --size=10g \
@@ -105,9 +106,9 @@ $(awk -F"(" '/\slat.*avg/ { print $2}' ./out/$NAME.txt | awk -F")" ' { print $1 
 sleep $SLEEP  
 
 #---------------------32K-write----------------------------------------------------------------------------#
-  BS=32k                                    # размер блока
-  RW=write                                  # тип теста: randread/randwrite/read/write
-  NAME=$BS-$RW-$IODEPTH-$NUMJOBS          # имя выходного файла
+BS=32k                                    # размер блока
+RW=write                                  # тип теста: randread/randwrite/read/write
+NAME=$BS-$RW-$IODEPTH-$NUMJOBS          # имя выходного файла
 
   fio \
   --size=10g \
