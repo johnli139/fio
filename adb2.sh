@@ -19,7 +19,10 @@ echo Hostname,$(hostname) >> $OUT
 echo Date,$(date +%d.%m.%Y" "%H:%M:%S) >> $OUT
 echo Fio version,$(fio --version) >> $OUT
 echo >> $OUT
-echo TESTED FILES,TEST TIME,BLOCK SIZE,PROFILE,IODEPTH,NUMJOBS,,IOPS,THROUGHPUT,LATENCY >> $OUT
+echo lsblk output: >> $OUT
+lsblk -o NAME,SIZE,TYPE,MOUNTPOINT,FSTYPE -i >> $OUT
+echo >> $OUT
+echo TESTED FILES,TEST TIME,BLOCK SIZE,PROFILE,IODEPTH,NUMJOBS,,IOPS,THROUGHPUT MiB/s,LATENCY >> $OUT
 
 #---------------------512K-WRITE----------------------------------------------------------------------------#
 BS=512k                                  # размер блока
