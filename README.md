@@ -1,2 +1,1 @@
-fio-based scripts for Storage tests
-Made for CST tests
+fio-based scripts for storage tests
