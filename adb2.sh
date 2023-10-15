@@ -8,8 +8,8 @@ FILE=/data1/fio                          # имена файлов для тес
 #FILE=/data1/fio:/data2/fio:/data3/fio:/data4/fio
 IODEPTH=1                                # кол-во IO, посылаемых в ОС без подтверждения их получения от ОС
 NUMJOBS=64                               # кол-во параллельных задач (процессов) 
-ID=$(date +%s)
 
+ID=$(date +%s)
 OUT="./$ID-$(hostname).csv"
 if [ -f "$OUT" ]; then
    rm -f $OUT
@@ -27,7 +27,7 @@ echo TESTED FILES,TEST TIME,BLOCK SIZE,PROFILE,IODEPTH,NUMJOBS,,IOPS,THROUGHPUT 
 #---------------------512K-WRITE----------------------------------------------------------------------------#
 BS=512k                                  # размер блока
 RW=write                                 # тип теста: randread/randwrite/read/write
-NAME=$ID-$BS-$RW-$IODEPTH-$NUMJOBS           # имя выходного файла
+NAME=$ID-$BS-$RW-$IODEPTH-$NUMJOBS       # имя выходного файла
 
   fio \
   --size=10g \
@@ -56,7 +56,7 @@ sleep $SLEEP
 #---------------------512K-READ----------------------------------------------------------------------------#
 BS=512k                                  # размер блока
 RW=read                                  # тип теста: randread/randwrite/read/write
-NAME=$ID-$BS-$RW-$IODEPTH-$NUMJOBS           # имя выходного файла
+NAME=$ID-$BS-$RW-$IODEPTH-$NUMJOBS       # имя выходного файла
 
   fio \
   --size=10g \
@@ -85,7 +85,7 @@ sleep $SLEEP
 #---------------------32K-WRITE----------------------------------------------------------------------------#
 BS=32k                                   # размер блока
 RW=write                                 # тип теста: randread/randwrite/read/write
-NAME=$ID-$BS-$RW-$IODEPTH-$NUMJOBS           # имя выходного файла
+NAME=$ID-$BS-$RW-$IODEPTH-$NUMJOBS       # имя выходного файла
 
   fio \
   --size=10g \
@@ -114,7 +114,7 @@ sleep $SLEEP
 #---------------------32K-READ----------------------------------------------------------------------------#
 BS=32k                                   # размер блока
 RW=read                                  # тип теста: randread/randwrite/read/write
-NAME=$ID-$BS-$RW-$IODEPTH-$NUMJOBS           # имя выходного файла
+NAME=$ID-$BS-$RW-$IODEPTH-$NUMJOBS       # имя выходного файла
 
   fio \
   --size=10g \
