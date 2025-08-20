@@ -27,7 +27,7 @@ echo TESTED FILES,TEST TIME,BLOCK SIZE,PROFILE,IODEPTH,NUMJOBS,,IOPS,THROUGHPUT 
 
 #---------------------32K-RANDWRITE-----------------------------------------------------------------------------#
 BS=32k                                  # размер блока
-RW=radnwrite                            # тип теста: randread/randwrite/read/write
+RW=randwrite                            # тип теста: randread/randwrite/read/write
 NAME=$ID-$BS-$RW-$IODEPTH-$NUMJOBS      # имя выходного файла
 
   fio \
